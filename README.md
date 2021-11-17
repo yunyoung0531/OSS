@@ -117,7 +117,7 @@ $OPTARG  : 옵션이 옵션-아규먼트를 필요로 하는 경우 옵션-아�
 
 
       예제 코드)
-```HTML
+```CSS
       while getopts abo: c
 
       do
@@ -142,7 +142,7 @@ $OPTARG  : 옵션이 옵션-아규먼트를 필요로 하는 경우 옵션-아�
 
 위의 코드는 다음의 모든 명령행을 동등한 것으로 취급한다.
 
-```C
+```CSS
      cmd -a -b -o "xxx z yy" filename
 
      cmd -a -b -o "xxx z yy" -- filename
@@ -158,7 +158,7 @@ $OPTARG  : 옵션이 옵션-아규먼트를 필요로 하는 경우 옵션-아�
 
 다음의 쉘 스크립트는 입력 아규먼트(positional parameter)를 파싱하고 출력하는 예이다.
 
-
+```CSS
      aflag=
 
      bflag=
@@ -198,7 +198,7 @@ $OPTARG  : 옵션이 옵션-아규먼트를 필요로 하는 경우 옵션-아�
      shift $(($OPTIND - 1))
 
      printf "Remaining arguments are: %s\n" "$*"
-
+```
 
 getopts는 optstring에 포함되지 않은 옵션 문자를 만나는 경우 표준 에러 출력으로 에러 메시지를 출력한다.
 
@@ -209,16 +209,16 @@ getopts는 optstring에 포함되지 않은 옵션 문자를 만나는 경우 �
 
 
 다음의 예는 옵션 아규먼트를 가지는 옵션은 다른 옵션들과 묶여져서는 안된다는 Rule 5를 위반하고 있다.
-
+```CSS
      example% cmd - aboxxx filename
-
+```
 
 다음의 예는 옵션 아규먼트를 가지는 옵션의 다음에는 공백문자가 있어야 한다는 Rule 6를 위반하고 있다.
-
+```CSS
      example% cmd - ab oxxx filename
 
      example% cmd - ab oxxx filename
-
+```
 
 쉘 변수 OPTIND의 값을 변경하거나 다른 아규먼트 셋을 파싱하는 경우, 결과는 예측할 수 없다.
 
