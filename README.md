@@ -117,7 +117,7 @@ $OPTARG  : 옵션이 옵션-아규먼트를 필요로 하는 경우 옵션-아�
 
 
       예제 코드)
-```CSS
+```HTML
       while getopts abo: c
 
       do
@@ -152,7 +152,7 @@ $OPTARG  : 옵션이 옵션-아규먼트를 필요로 하는 경우 옵션-아�
      cmd -ab -o "xxx z yy" filename
 
      cmd -o xxx,z,yy -b -a filename
-```C
+```
 
 2.3.1) 예제 2
 
