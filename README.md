@@ -3,7 +3,7 @@
 
 **********************************
 
-## getopts
+## getopt & getopts
 1) 사용자 명령어로써의 getopts 
 getopts 유틸리티는 파라메터들의 리스트에서 옵션(options)과 옵션-파라메터(option-parameter)를 추출하는데 사용한다.
 
