@@ -155,7 +155,7 @@ $OPTARG  : 옵션이 옵션-아규먼트를 필요로 하는 경우 옵션-아�
      cmd -o xxx,z,yy -b -a filename
 
 
-2.3.1 예제 2
+2.3.1) 예제 2
 
 다음의 쉘 스크립트는 입력 아규먼트(positional parameter)를 파싱하고 출력하는 예이다.
 
