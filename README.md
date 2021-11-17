@@ -385,4 +385,55 @@ cmd -abo filename
      }
 ```
 
+4 참고 사항
 
+4.1 리눅스에서의 명령행 옵션 분석 지원 라이브러리
+리눅스에서는 명령행 옵션 분석을 위한 getopt외에 별도의 popt 라이브러리를 제공하며 이 라이브러리에서는
+다음과 같은 여러가지 함수들을 제공한다. 자세한 내용은 man popt를 사용한 온라인 문서또는 다음의 참고서적에서
+확인하기 바란다.
+
+Michael K. Johnson and Erik W. Troan, "Linux Application Development", Addison Wesley Longman, Inc., 1998
+
+```c
+#include <popt.h>
+
+poptContext poptGetContext(char * name, int argc, char ** argv,
+
+struct poptOption * options,  int flags);
+
+void poptFreeContext(poptContext con);
+
+void poptResetContext(poptContext con);
+
+int poptGetNextOpt(poptContext con);
+
+char * poptgetoptArg(poptContext con);
+
+char * poptGetArg(poptContext con);
+
+char * poptPeekArg(poptContext con);
+
+char ** poptGetArgs(poptContext con);
+
+const char * poptStrerror(const int error);
+
+char * poptBadOption(poptContext con, int flags);
+
+int poptReadDefaultConfig(poptContext con, int flags);
+
+int poptReadConfigFile(poptContext con, char * fn);
+
+int poptAddAlias(poptContext con, struct poptAlias alias, int flags);
+
+int poptParseArgvString(char * s, int *  argcPtr, char *** argvPtr);
+
+int poptStuffArgs(poptContext con, char ** argv);
+```
+
+
+4.2) Perl에서의 지원
+Perl에서도 getopts 또는 getopt 모듈은 지원한다. 자세한 내용은 man perltoc또는 man perlfunc또는 man perlopentut를 통하여 온라인 문서로 확인할 수 있다.
+
+
+4.3) 본쉘외의 다른 쉘에서의 getopts 지원
+zsh, ksh에서도 getopts를 지원한다. 상세한 내용은  각 쉘의 man page를 참조한다.
