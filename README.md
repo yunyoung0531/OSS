@@ -117,7 +117,7 @@ $OPTARG  : 옵션이 옵션-아규먼트를 필요로 하는 경우 옵션-아�
 
 
       예제 코드)
-```html
+```CSS
       while getopts abo: c
 
       do
