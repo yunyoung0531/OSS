@@ -223,3 +223,175 @@ getopts는 optstring에 포함되지 않은 옵션 문자를 만나는 경우 �
 쉘 변수 OPTIND의 값을 변경하거나 다른 아규먼트 셋을 파싱하는 경우, 결과는 예측할 수 없다.
 
 
+2.5) 서브 쉘 또는 다른 실행환경에서  getopts의 동작시 유의사항
+
+getopts는 현재 쉘의 실행 환경(shell execution environment)에 영향을 주기 때문에, 일반적으로 쉘의 내장 명령어로 제공된다. getopts간 서브쉘에서 호출되거나, 다음과 같이 별도의 유틸리티 실행 환경에서 호출되는 경우
+```CSS
+            (getopts abc value "$@")
+
+            nohup getopts ...
+
+            find . - exec getopts ... \;
+```
+이를 호출한 부모 쉘의 환경(caller's environment)에는 영향을 줄 수가 없다.
+
+
+positional parameter가 변할 수는 있지만, 쉘 함수(shell function)는 호출하는 쉘과$OPTIND 쉘 변수를 공유한다는 점에 유의하여야 한다. 일반적으로 getopts를 사용하여 입력 아규먼트를 파싱하고자하는 쉘 함수는 시작시에 $OPTIND의 값을 저장하고 리턴하기 전에 $OPTIND의 값을 시작시 에 저장한 값으로 복구한다. 그러나 쉘 함수를 호출하는 쉘을 위하여 $OPTIND를 바꾸기를 원하는 경우도 있을 수 있다.
+
+
+3. C 라이브러리 함수 getopt
+
+getopt는 C 라이브러리 함수 getopt()의 형태로도 제공된다. getopt()함수를 C코드에서 사용하기 위해서는 다음과 같이 <stdlib.h> 헤더 파일을 include하여야 한다.
+```C
+     #include <stdlib.h>
+```
+
+3.1 함수 프로토타입
+```C
+     int getopt(int argc, char * const *argv,  const  char  *optstring);
+
+     extern char *optarg;
+
+     extern int optind, opterr, optopt;
+```
+3.2 함수 설명
+
+getopt() 함수는 char **argv에서 char *optstring내에 있는 문자중 하나와 일치하는 옵션 문자를 리턴한다. getopt()함수는 명령 구문 표준에 있는 모든 규칙을 지원한다. 새로 작성되는 모든 명령어들은 명령 구문 표준을 준수하여야 하므로, 명령행에서 positonal parameter를 분석하고 유효한지를 검사하기 위해서는 사용자 명령어인 getopts,또는 C 라이브러리 함수인 getopt(), getsubopt()를 사용하여야 한다.
+
+
+char *optstring은 getopt() 함수가 처리하여야할 옵션 문자들을 포함한다. 옵션 문자뒤에 콜론 ':'이 오면, 해당 옵션이 한 개의 옵션 아규먼트 또는 공백 문자로 분리되는 복수개의 옵션 아규먼트를 가지는 것을 나타낸다.
+
+
+char *optarg는 getopt()함수의 리턴시에 옵션 아규먼트의 시작 위치를 가리키도록 설정된다.
+
+
+getopt() 함수는 extern int optind에 다음에 처리할 아규먼트에 대한 char **argv내에서의인덱스를 저장한다( char **argv는 의미적으로 char *argv[]와 동등하다). extern int optind
+
+는 getopt()함수의 최초 호출전에 1로 초기화된다.
+
+
+모든 옵션이 처리되고 나면( 즉 옵션이 아닌 아규먼트를 만나게 되면), getopt()는 EOF를 리턴한다.
+
+연속되는 두개의 하이픈으로 표시되는 특수 옵션 '--'를 사용하여 옵션의 끝을 나타낼수도 있다.
+
+getopt() 함수가 '--'를 만나는 경우에도 EOF가 리턴된다. 특수 옵션 '--'는 '-'로 시작하는 옵션이 아닌 문자열을 처리하고자 할 때 유용하게 사용할 수 있다.
+
+
+3.3 리턴값
+
+getopt() 함수가 char *optstring에서 지정되지 않은 옵션 문자를 만나거나 옵션 아규먼트를 가지는 옵션문자뒤에 옵션 아규먼트가 없는 경우에 표준 에러(stderr)에 에러 메시지를 출력하고 "?"를 리턴한다. extern int opterr을 0으로 설정하여 에러 메시지가 출력되지 않도록 할 수도 있다. 에러를 유발시킨 문자는 extern int optopt에 저장된다.
+
+
+3.4 getopt() 함수 사용에 따른 유의 사항
+
+getopt() 함수를 사용한 C코드가 -lintl로 링크되는 경우에, getopt()가 출력하는 메시지는
+
+LC_message locale category로 지정된 국가 언어로 출력된다. 자세한 내용은 setlocale()
+
+함수를 참조한다.
+
+
+getopt() 함수는 옵션 아규먼트에 대한 것을 완벽하게 검사하지는 않는다. 예를 들어 옵션 문자열 optstring이 "a:b"이고 char **argv에  "-a -b"가 입력으로 사용된 경우,  getopt() 함수는 "-b"를 "-a"옵션에 대한 옵션 아규먼트로 처리한다.
+
+
+아래의 예와 같이 옵션과 옵션 아규먼트를 함께 묶에서 사용하는 것은 명령 구문 표준을 위반한다.
+
+cmd -abo filename
+
+
+위의 예에서 a와 b는 옵션이고 o는 옵션 아규먼트를 필요로하는 옵션이며 filename은 옵션 o에 대한 옵션 아규먼트이다. 현재 버젼의 getopt()에서는 이러한 구문이 허용되기는 하지만, 차기 버전에서 이러한 구문이 지원되지 않을 수도 있으므로 다음과 같은 명령 구문 표준에 맞게 사용하여야 한다.
+
+     cmd -ab -o filename.
+
+
+3.4 getopt() 함수를 사용한 C 프로그램 예제
+
+다음의 예제 코드는 C 프로그램에서 getopt() 함수를 사용하여 명령행 옵션을 처리하는
+
+과정을 예시한 것으로 옵션 -a, -b와 옵션 아규먼트를 사용하는 -o옵션을 처리하는
+
+코드이다.
+
+     #include <stdlib.h>
+
+     #include <stdio.h>
+
+     main (int argc, char **argv)
+
+     {
+
+        int c;
+
+        extern char *optarg;
+
+        extern int optind;
+
+        int aflg = 0;
+
+        int bflg = 0;
+
+        int errflg = 0;
+
+        char *ofile = NULL;
+
+
+        while ((c = getopt(argc, argv, "abo:")) != EOF)
+
+           switch (c) {
+
+           case 'a':
+
+              if (bflg)
+
+                 errflg++;
+
+              else
+
+                 aflg++;
+
+              break;
+
+           case 'b':
+
+              if (aflg)
+
+                 errflg++;
+
+              else
+
+                 bflg++;
+
+              break;
+
+           case 'o':
+
+              ofile = optarg;
+
+              (void)printf("ofile = %s\n", ofile);
+
+              break;
+
+           case '?':
+
+              errflg++;
+
+           }
+
+        if (errflg) {
+
+           (void)fprintf(stderr,
+
+              "usage: cmd [-a|-b] [-o <filename>] files...\n");
+
+           exit (2);
+
+            }
+
+            for ( ; optind < argc; optind++)
+
+          (void)printf("%s\n", argv[optind]);    return 0;
+
+     }
+
+
+
