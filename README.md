@@ -258,17 +258,12 @@ getopt는 C 라이브러리 함수 getopt()의 형태로도 제공된다. getopt
 
 getopt() 함수는 char **argv에서 char *optstring내에 있는 문자중 하나와 일치하는 옵션 문자를 리턴한다. getopt()함수는 명령 구문 표준에 있는 모든 규칙을 지원한다. 새로 작성되는 모든 명령어들은 명령 구문 표준을 준수하여야 하므로, 명령행에서 positonal parameter를 분석하고 유효한지를 검사하기 위해서는 사용자 명령어인 getopts,또는 C 라이브러리 함수인 getopt(), getsubopt()를 사용하여야 한다.
 
-
 char *optstring은 getopt() 함수가 처리하여야할 옵션 문자들을 포함한다. 옵션 문자뒤에 콜론 ':'이 오면, 해당 옵션이 한 개의 옵션 아규먼트 또는 공백 문자로 분리되는 복수개의 옵션 아규먼트를 가지는 것을 나타낸다.
-
 
 char *optarg는 getopt()함수의 리턴시에 옵션 아규먼트의 시작 위치를 가리키도록 설정된다.
 
-
 getopt() 함수는 extern int optind에 다음에 처리할 아규먼트에 대한 char **argv내에서의인덱스를 저장한다( char **argv는 의미적으로 char *argv[]와 동등하다). extern int optind
-
 는 getopt()함수의 최초 호출전에 1로 초기화된다.
-
 
 모든 옵션이 처리되고 나면( 즉 옵션이 아닌 아규먼트를 만나게 되면), getopt()는 EOF를 리턴한다.
 
@@ -277,10 +272,9 @@ getopt() 함수는 extern int optind에 다음에 처리할 아규먼트에 대�
 getopt() 함수가 '--'를 만나는 경우에도 EOF가 리턴된다. 특수 옵션 '--'는 '-'로 시작하는 옵션이 아닌 문자열을 처리하고자 할 때 유용하게 사용할 수 있다.
 
 
-3.3 리턴값
+3.3) 리턴값
 
 getopt() 함수가 char *optstring에서 지정되지 않은 옵션 문자를 만나거나 옵션 아규먼트를 가지는 옵션문자뒤에 옵션 아규먼트가 없는 경우에 표준 에러(stderr)에 에러 메시지를 출력하고 "?"를 리턴한다. extern int opterr을 0으로 설정하여 에러 메시지가 출력되지 않도록 할 수도 있다. 에러를 유발시킨 문자는 extern int optopt에 저장된다.
-
 
 3.4 getopt() 함수 사용에 따른 유의 사항
 
@@ -290,14 +284,11 @@ LC_message locale category로 지정된 국가 언어로 출력된다. 자세한
 
 함수를 참조한다.
 
-
 getopt() 함수는 옵션 아규먼트에 대한 것을 완벽하게 검사하지는 않는다. 예를 들어 옵션 문자열 optstring이 "a:b"이고 char **argv에  "-a -b"가 입력으로 사용된 경우,  getopt() 함수는 "-b"를 "-a"옵션에 대한 옵션 아규먼트로 처리한다.
-
 
 아래의 예와 같이 옵션과 옵션 아규먼트를 함께 묶에서 사용하는 것은 명령 구문 표준을 위반한다.
 
 cmd -abo filename
-
 
 위의 예에서 a와 b는 옵션이고 o는 옵션 아규먼트를 필요로하는 옵션이며 filename은 옵션 o에 대한 옵션 아규먼트이다. 현재 버젼의 getopt()에서는 이러한 구문이 허용되기는 하지만, 차기 버전에서 이러한 구문이 지원되지 않을 수도 있으므로 다음과 같은 명령 구문 표준에 맞게 사용하여야 한다.
 
@@ -311,7 +302,7 @@ cmd -abo filename
 과정을 예시한 것으로 옵션 -a, -b와 옵션 아규먼트를 사용하는 -o옵션을 처리하는
 
 코드이다.
-
+```C
      #include <stdlib.h>
 
      #include <stdio.h>
@@ -392,6 +383,6 @@ cmd -abo filename
           (void)printf("%s\n", argv[optind]);    return 0;
 
      }
-
+```
 
 
