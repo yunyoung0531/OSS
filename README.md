@@ -8,7 +8,6 @@
 getopts 유틸리티는 파라메터들의 리스트에서 옵션(options)과 옵션-파라메터(option-parameter)를 추출하는데 사용한다.
 
 1.1) 사용법
-
 getopts의 사용 방법은 다음과 같다.
 
 /usr/bin/getopts optstring name  [ arg ...  ]
