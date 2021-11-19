@@ -1,7 +1,7 @@
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=yunyoung0531&show_icons=true&theme=radical)
 
 # OSS
-**오픈소스SW개론 첫번째 과제 조선대학교 컴퓨터공학과 20203215 최윤영**
+__오픈소스SW개론 첫번째 과제 조선대학교 컴퓨터공학과 20203215 최윤영__
 
 **********************************
 
