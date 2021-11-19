@@ -3,7 +3,6 @@
 # OSS
 ___오픈소스SW개론 첫번째 과제 조선대학교 컴퓨터공학과 20203215 최윤영___
 
-![고양이1](https://user-images.githubusercontent.com/68066598/142691400-dd8c1ed4-e981-4c2a-a442-5e1aefd18241.png)
 !<img src="https://user-images.githubusercontent.com/68066598/142691400-dd8c1ed4-e981-4c2a-a442-5e1aefd18241.png" width="20%" height="20%"/>
 
 **********************************
