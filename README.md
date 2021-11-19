@@ -34,7 +34,6 @@ ___오픈소스SW개론 첫번째 과제 조선대학교 컴퓨터공학과 2020
      다음의 예제 코드는 C 프로그램에서 getopt() 함수를 사용하여 명령행 옵션을 처리하는 과정을 예시한 것으로 옵션 -a, -b와 옵션 아규먼트를 사용하는 -o옵션을 처리하는 코드이다.
 ```C
      #include <stdlib.h>
-
      #include <stdio.h>
 
      main (int argc, char **argv)
@@ -114,6 +113,21 @@ ___오픈소스SW개론 첫번째 과제 조선대학교 컴퓨터공학과 2020
 
      }
 ```
+
+### getopts
+1) getopt에 대한 간단한 설명
+* 매개변수 리스트에서 옵션 및 옵션 인수를 검색하는 Korn/POSIX 쉘 내장 명령이다.
+* OptionString의 문자 뒤에는 :(콜론)이 오면 옵션에 인수가 있는 것으로 간주된다.
+* 파라미터들의 리스트에서 옵션(options)과 옵션-파라메터(option-parameter)를 추출하는데 사용한다.
+
+2) getopts 사용법
+ /usr/bin/getopts optstring name  [ arg ...  ]
+
+    optstring : 옵션으로 사용될 문자들로 구성된 문자열
+
+    name : getopt가 옵션 분석과정에서 분석된 옵션 문자열을 저자하는 쉘 변수
+
+    arg  : 쉘 스크립트에 전달되는 positional parameter대신 분석하고자 하는 문자열
 
 
 ## sed & awk
