@@ -1,4 +1,5 @@
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=yunyoung0531&show_icons=true&theme=radical)
+<img src="https://img.shields.io/badge/Python-3766AB?style=flat-square&logo=Python&logoColor=white"/></a>&nbsp 
 
 # OSS
 오픈소스SW개론 첫번째 과제 조선대학교 컴퓨터공학과 20203215 최윤영
