@@ -129,6 +129,18 @@ ___오픈소스SW개론 첫번째 과제 조선대학교 컴퓨터공학과 2020
 
     _arg_  : 쉘 스크립트에 전달되는 positional parameter대신 분석하고자 하는 문자열
 
+3) getopts의 동작 과정
+```getopts는 호출될때 마다, 쉘 변수 $name에 다음 옵션을 저장하고 다음 처리할 옵션에 대한 인덱스를 쉘 변수 $OPTIND에 저장한다. 
+쉘 또는 쉘 스크립트가 호출될 때마다, 쉘 변수 $OPTIND의 값은 1로 초기화된다.
+옵션이 옵션-아규먼트를 필요로 할 경우, getopts는 옵션-아규먼트를 쉘 변수 $OPTARG에 저장한다.
+올바르지 않은 옵션을 만나는 경우에는 물음표 '?'가 쉘 변수 $name에 저장된다.
+옵션의 끝에 도달한 경우, getopts는 0이 아닌 exit status로 종료한다. 특수 옵션 --가 옵션을 끝을 나타내기 위하여 사용될 수 있다.
+기본적으로, getopts는 positional parameter를 파싱한다.
+만일  별도의  아규먼트 arg가 getopts에 주어진 경우, getopts는 positional parameter대신에 별도로 주어진 아규먼트 arg를 파싱한다.
+/usr/lib/getoptcvt는 filename내의 쉘 스크립트를 읽어들여, 이를 getopt대신에 getopts를 사용하도록 변환한 후 결과를 표준 출력에 출력한다.
+모든 새로 작성되는 명령어는 intro(1)에서 기술된 명령 구문 표준(command syntax standard)을 준수하기 위하여 getopts또는 getopt를 사용하여 positional parameters를 파싱하고 해당 명령어에 유효한 옵션인지를 검사하여야 한다.
+getopts수행후에는 다음의 종료값이 리턴된다.
+```
 
 ## sed & awk
 
