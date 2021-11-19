@@ -1,7 +1,7 @@
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=yunyoung0531&show_icons=true&theme=radical)
 
 # OSS
-__오픈소스SW개론 첫번째 과제 조선대학교 컴퓨터공학과 20203215 최윤영__
+___오픈소스SW개론 첫번째 과제 조선대학교 컴퓨터공학과 20203215 최윤영___
 
 **********************************
 
@@ -12,8 +12,25 @@ __오픈소스SW개론 첫번째 과제 조선대학교 컴퓨터공학과 20203
 * 모든 토큰을 읽은 후 또는 특수 토큰 -(더블 하이픈)이 발생하는 경우 처리를 완료한다.
 * 토큰이 플래그와 일치하는 데 실패하는 경우 getopt 명령은 메시지를 표준 오류에 기록한다.
 
-#### getopt 구문
+2) getopt 구문
 * getopt Format Tokens
+
+3) getopt() 함수 사용에 따른 유의 사항
+getopt() 함수를 사용한 C코드가 -lintl로 링크되는 경우에, getopt()가 출력하는 메시지는
+
+LC_message locale category로 지정된 국가 언어로 출력된다. 자세한 내용은 setlocale()
+
+함수를 참조한다.
+
+getopt() 함수는 옵션 아규먼트에 대한 것을 완벽하게 검사하지는 않는다. 예를 들어 옵션 문자열 optstring이 "a:b"이고 char **argv에  "-a -b"가 입력으로 사용된 경우,  getopt() 함수는 "-b"를 "-a"옵션에 대한 옵션 아규먼트로 처리한다.
+
+아래의 예와 같이 옵션과 옵션 아규먼트를 함께 묶에서 사용하는 것은 명령 구문 표준을 위반한다.
+
+cmd -abo filename
+
+위의 예에서 a와 b는 옵션이고 o는 옵션 아규먼트를 필요로하는 옵션이며 filename은 옵션 o에 대한 옵션 아규먼트이다. 현재 버젼의 getopt()에서는 이러한 구문이 허용되기는 하지만, 차기 버전에서 이러한 구문이 지원되지 않을 수도 있으므로 다음과 같은 명령 구문 표준에 맞게 사용하여야 한다.
+
+     cmd -ab -o filename.
 
 ## sed & awk
 
