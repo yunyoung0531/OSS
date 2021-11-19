@@ -146,7 +146,59 @@ getopts수행후에는 다음의 종료값이 리턴된다.
 |0|optstring에 의해 지정되거나 지정되지 않은 옵션이 발견됨|
 |>0|옵션의 끝 또는 에러가 발생|
 
+4) getopts 예제
+다음의 코드는 optstring은 "abo:"으로 하고 c를 다음 옵션을 저장하기 위한 쉘 변수로 하여 프로그래밍한 예이다.
+
+요약 설명
+
+"abo:"   : 옵션 문자로 사용될 문자들을 지정한 optstring으로 -a, -b, -o의 옵션 문자가 사용될수 있으며 -o옵션은 옵션 아규먼트를 가진다.
+$c       : 다음 옵션을 위한 사용자 쉘 변수
+$OPTARG  : 옵션이 옵션-아규먼트를 필요로 하는 경우 옵션-아규먼트가 저장되는 쉘 내장 변수
+
+
+      예제 코드)
+```CSS
+      while getopts abo: c
+
+      do
+
+           case $c in
+
+              a | b)   FLAG=$c;;
+
+              o)       OARG=$OPTARG;;
+
+              \?)      echo $USAGE
+
+                       exit 2;;
+
+           esac
+
+     done
+
+     shift `expr $OPTIND - 1`
+```
+
+
+> 위의 코드는 다음의 모든 명령행을 동등한 것으로 취급한다.
+
+```CSS
+     cmd -a -b -o "xxx z yy" filename
+
+     cmd -a -b -o "xxx z yy" -- filename
+
+     cmd -ab -o xxx,z,yy filename
+
+     cmd -ab -o "xxx z yy" filename
+
+     cmd -o xxx,z,yy -b -a filename
+```
+
+
+
+
 **********************************
+
 
 ## sed & awk
 
