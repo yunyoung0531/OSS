@@ -28,7 +28,92 @@ ___오픈소스SW개론 첫번째 과제 조선대학교 컴퓨터공학과 2020
 
      위의 예에서 a와 b는 옵션이고 o는 옵션 아규먼트를 필요로하는 옵션이며 filename은 옵션 o에 대한 옵션 아규먼트이다. 현재 버젼의 getopt()에서는 이러한 구문이 허용되기는 하지만, 차      기 버전에서 이러한 구문이 지원되지 않을 수도 있으므로 다음과 같은 명령 구문 표준에 맞게 사용하여야 한다.
 
-          cmd -ab -o filename.
+          cmd -ab -o filename
+
+4) getopt() 함수를 사용한 C 프로그램 예제
+     다음의 예제 코드는 C 프로그램에서 getopt() 함수를 사용하여 명령행 옵션을 처리하는 과정을 예시한 것으로 옵션 -a, -b와 옵션 아규먼트를 사용하는 -o옵션을 처리하는 코드이다.
+```C
+     #include <stdlib.h>
+
+     #include <stdio.h>
+
+     main (int argc, char **argv)
+
+     {
+
+        int c;
+
+        extern char *optarg;
+
+        extern int optind;
+
+        int aflg = 0;
+
+        int bflg = 0;
+
+        int errflg = 0;
+
+        char *ofile = NULL;
+
+
+        while ((c = getopt(argc, argv, "abo:")) != EOF)
+
+           switch (c) {
+
+           case 'a':
+
+              if (bflg)
+
+                 errflg++;
+
+              else
+
+                 aflg++;
+
+              break;
+
+           case 'b':
+
+              if (aflg)
+
+                 errflg++;
+
+              else
+
+                 bflg++;
+
+              break;
+
+           case 'o':
+
+              ofile = optarg;
+
+              (void)printf("ofile = %s\n", ofile);
+
+              break;
+
+           case '?':
+
+              errflg++;
+
+           }
+
+        if (errflg) {
+
+           (void)fprintf(stderr,
+
+              "usage: cmd [-a|-b] [-o <filename>] files...\n");
+
+           exit (2);
+
+            }
+
+            for ( ; optind < argc; optind++)
+
+          (void)printf("%s\n", argv[optind]);    return 0;
+
+     }
+```
 
 
 ## sed & awk
