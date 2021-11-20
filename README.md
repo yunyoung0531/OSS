@@ -19,6 +19,7 @@ ___오픈소스SW개론 첫번째 과제 조선대학교 컴퓨터공학과 2020
 * getopt Format Tokens
 
 3) getopt() 함수 사용에 따른 유의 사항
+
      getopt() 함수를 사용한 C코드가 -lintl로 링크되는 경우에, getopt()가 출력하는 메시지는 LC_message locale category로 지정된 국가 언어로 출력된다. 
      자세한 내용은 setlocale() 함수를 참조한다.
 
@@ -34,6 +35,7 @@ ___오픈소스SW개론 첫번째 과제 조선대학교 컴퓨터공학과 2020
           cmd -ab -o filename
 
 4) getopt() 함수를 사용한 C 프로그램 예제
+
      다음의 예제 코드는 C 프로그램에서 getopt() 함수를 사용하여 명령행 옵션을 처리하는 과정을 예시한 것으로 옵션 -a, -b와 옵션 아규먼트를 사용하는 -o옵션을 처리하는 코드이다.
 ```C
      #include <stdlib.h>
